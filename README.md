@@ -1,4 +1,4 @@
-📚 <h1>CRIANDO API COM ANGULAR</h1> 📚
+<h1>📚 CRIANDO API COM ANGULAR 📚</h1>
  
 
 🌟 Todos os direitos reservados a Capgemini, empresa pela qual me oportunizou esse treinamento e estou compartilhando os projetos.
@@ -13,7 +13,7 @@ Nesse curso, tive uma experiência com a criação de api usando o Framework Ang
 
 🌟 Precisa estar instalado o NodeJs
 
-<h3>Criação do Banco de dados para manipular no projeto em 3 etapas</h3>.
+<h3>📚 Criação do Banco de dados para manipular no projeto em 3 etapas 📚</h3>.
 
 Usei para o Banco de dados o XAMPP e administrador a linguagem MySQL.
 1. Abrir o MySQL admin e criar o banco de dados com o nome api.
@@ -28,7 +28,7 @@ valorCurso DECIMAL(10,2)
 3.	Adicionei os dados na tabela:
 INSERT INTO cursos VALUES (null, “Angular”, 850)
 
-<h3>Comandos Básicos de criação de projetos e componentes do Angular.</h3>
+<h3>🖥️ Comandos Básicos de criação de projetos e componentes do Angular. 🖥️</h3>
 
 <table>
  <tr> 
