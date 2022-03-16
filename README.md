@@ -10,7 +10,7 @@
 🔖 Conecta lá no meu Linkedin: https://www.linkedin.com/in/charles-antunes-49b00057/ 💻
 
 Nesse curso, tive uma experiência com a criação de api usando o Framework Angular, usei o Git Bash pelo VScode para versionamento. vou deixa as pastas que usei no curso para clonar. alguma dúvida, só informar que ajudarei.
-Comandos Básicos de criação de projetos e componentes do Angular.
+
 🌟 Precisa estar instalado o NodeJs
 
 ##Criação do Banco de dados para manipular no projeto em 3 etapas.
@@ -28,6 +28,7 @@ valorCurso DECIMAL(10,2)
 3.	Adicionei os dados na tabela:
 INSERT INTO cursos VALUES (null, “Angular”, 850)
 
+##Comandos Básicos de criação de projetos e componentes do Angular.
 
 <table>
  <tr> 
