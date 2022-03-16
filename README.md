@@ -13,6 +13,22 @@ Nesse curso, tive uma experiência com a criação de api usando o Framework Ang
 Comandos Básicos de criação de projetos e componentes do Angular.
 🌟 Precisa estar instalado o NodeJs
 
+##Criação do Banco de dados para manipular no projeto em 3 etapas.
+
+Usei para o Banco de dados o XAMPP e administrador a linguagem MySQL.
+1. Abrir o MySQL admin e criar o banco de dados com o nome api.
+
+2.	Depois criei a tabela: 
+CREATE TABLE cursos(
+idCursos INT AUTO_INCREMENT PRIMARY KEY,
+nomeCursos VARCHAR(30),
+valorCurso DECIMAL(10,2)
+)
+
+3.	Adicionei os dados na tabela:
+INSERT INTO cursos VALUES (null, “Angular”, 850)
+
+
 <table>
  <tr> 
    <td>📚Código completo📚</td>
@@ -41,7 +57,5 @@ Comandos Básicos de criação de projetos e componentes do Angular.
    <td>ng g c cursos</td>     
    <td>Dentro da pasta app cria uma pasta cursos
     <br \>com componentes dentro</td>
- </tr>
- 
- 
+ </tr> 
 </table>
