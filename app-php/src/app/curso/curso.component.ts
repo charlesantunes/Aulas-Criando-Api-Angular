@@ -1,50 +1,88 @@
-//05-comopente onde fica a regra de negócios, onde executa umas funcionalidades como eventos do click do mouse, teclado, inicialização... 
-import { HttpClient } from '@angular/common/http';//23- importado com o comando HttpClient do nº22
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Curso } from './curso'; //27- importado com a criação do curso[], nº26
+import { Curso } from './curso';
+import { CursoService } from './curso.service';
 
 @Component({
-  selector: 'app-curso',  //06-app-curso é o nome da pagina para ser chamada pelo app.component.html e exibida no browser.
+  selector: 'app-curso',
   templateUrl: './curso.component.html',  //página html interna
   styleUrls: ['./curso.component.css']  //stylo da página interna
 })
 export class CursoComponent implements OnInit {
-  //nome:string = 'Charles';  //10-testando a variável na página, teste será com o bind{{}} no curso.componente.html, apagar depois
 
-  //23-URL base
-  url = "http://localhost/api/php/";  //24-colar o local onde está os componentes de conexão com o BD do php
+  //URL base
+  url = "http://localhost/api/php/";
 
-  //25-Vetor dos Cursos
-  //25-Vetor dos Cursos
-  vetor: Curso[] = []; //-26 ERRO - o vetor usando colchetes armazena todos os dados da classe Curso do component curso.ts, os objetos do construtor.
-   //-26 o vetor usando colchetes armazena todos os dados da classe Curso do component curso.ts, os objetos do construtor.
+  //Vetor dos Cursos  
+  vetor: Curso[];
 
-  //Construtor-executa alguma funcionalidade ou estancia um objeto
-  constructor(private http:HttpClient) { } //22-confirando e encapsulando os dados de envio e consulta do BD, HttpClient foi adicionado no app.module.ts nº01
+  //Instaciando o Objeto da classe Curso
+  curso = new Curso();
 
-  //inicializador do sistema
-  ngOnInit(): void {  //ao iniciar a pagina pode executar uma ação.
-    //alert("Olá, teste de inicialização"); //09-testando a função de inicialização, apagar depois.
+  constructor(private curso_service:CursoService) { } 
+
+  ngOnInit(){
+  this.selecao(); 
   }
 
-  //12-Cadastro
-  cadastro():void{  //13-função com retorno(void)
-    //alert("Olá, teste de Cadastro") //17-apenas para teste, apagar depois
+  cadastro(){
+    this.curso_service.obtercursos(this.curso).subscribe(  
+      (res:Curso[]) => {
+
+        this.vetor = res;
+
+        //Limpar os atributos
+        this.curso.nomeCurso =  null;
+        this.curso.valorCurso = null;
+
+        //atualizar a lista
+        this.selecao();
+      }
+    )  
+  
   }
 
-  //14-Seleção
-  selecao():void{
-    //alert("Olá, teste de Seleção")  //apenas para teste, apagar depois
+  selecao(){
+    this.curso_service.obtercursos().subscribe(  
+      (res:Curso[]) => {
+        this.vetor = res;
+      }
+    )   
   }
 
-  //15-Alterar
-  alterar():void{
-    //alert("Olá, teste de Alterar")  //apenas para teste, apagar depois
+  alterar(){
+    this.curso_service.atualizaCurso(this.curso).subscribe(   
+      (res) => {
+
+        //atualizando vetor
+        this.vetor=res;
+
+        this.curso.nomeCurso = null;
+        this.curso.valorCurso = null;
+
+        this.selecao();
+
+      }
+    )
+  
+  }
+
+  remover(){
+    this.curso_service.removerCurso(this.curso).subscribe(
+      (res : Curso[])=> {
+        this.vetor = res;
+
+        this.curso.nomeCurso = null;   
+        this.curso.valorCurso = null;   
+      }
+    )
+  }
+
+  //61-Selecionar ou exibir um curso específico 
+  selecionarCurso(c:Curso){
+    this.curso.idCurso = c.idCurso;
+    this.curso.nomeCurso = c.nomeCurso;
+    this.curso.valorCurso = c.valorCurso;
   }
   
-  //16-Remover
-  remover():void{
-    //alert("Olá, teste de Remover")  //apenas para teste, apagar depois
-  }
-
 }

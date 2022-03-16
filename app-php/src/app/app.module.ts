@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms'; //4-criar automaticamente
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { HttpClientModule} from '@angular/common/http'; //02-importar o HttpClientModule
+import { HttpClientModule} from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { CursoComponent } from './curso/curso.component';
 
@@ -13,8 +13,8 @@ import { CursoComponent } from './curso/curso.component';
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,  //01-cria um vínculo entre o Angular e o php p/ receber dados.
-    FormsModule   //03- cria um vínculo entre o formulário do html e o typScript
+    HttpClientModule,  //vínculo entre o Angular e o php p/ receber dados.
+    FormsModule   //vínculo entre o formulário do html e o typScript
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,29 +1,76 @@
-import { HttpClient } from '@angular/common/http';  //29-import do HttpClient, nº28
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators'; //30-adicionar esse import que lista todos os dados que contém no BD.
-import { Curso } from './curso';  //inport do Curso do nº31
+import { map } from 'rxjs/operators'; 
+import { Curso } from './curso';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class CursoService {
 
-  //29-URL
   url = "http://localhost/api/php/";
 
-  //30-Vetor
-  vetor:Curso[] = []; //31-ERRO-esse vetor sempre com erro,vetor: Curso[]; , tentei resolver com vetor: Curso[] = [];
+  vetor:Curso[];
 
-  constructor(private http: HttpClient) { } //28-configurando o acesso ao banco de dados
+  constructor(private http: HttpClient) { }
 
-  //31-Método- obter todos os cursos
-  obtercursos():Observable<Curso[]>{    //32-Observable permite listar todos os componentes da pasta php e fazer uma leitura de todas as linhas, assim tendo acesso ao idCurso, nomeCurso, valorCurso e adicionar esses elementos no vetor:Curso[]. nº31
-    return this.http.get(this.url+"listar").pipe(    //33-vai no banco de dados e pega(GET) os dados, no caso, pega o listar.php, depois usar a função pipe() e criar um mapeamento dentro para trabalhar com as colunas dos dados. 
-      map((res)=>{    //34-dentro do map precisa criar uma variavel com a reposta dos dados obtidos, escolhi o nome res, depois usa => para idenficar um json e dentro as informações
-        this.vetor = res['cursos'];   //35-ERRO- o vetor vai receber as informações da variavel res.
+   obtercursos():Observable<Curso[]>{    
+    return this.http.get(this.url+'listar').pipe( 
+      map((res)=>{
+        this.vetor = res['cursos'];
         return this.vetor;
       })  
+    )    
+  }
+
+  cadastrarCursos(c:Curso):Observable<Curso[]>{
+    return this.http.post(this.url+'cadastrar',{cursos:c}).pipe( 
+      map((res)=>{
+        this.vetor.push(res['cursos']);
+        return this.vetor;
+      })
     )
   }
+  
+  //Excluir curso
+  removerCurso(c: Curso): Observable<Curso[]>{
+
+    const params = new HttpParams().set("idCurso", c.idCurso?.toString());
+    
+    return this.http.delete(this.url+'excluir', {params: params})
+    .pipe(map((res) =>{
+
+      const filtro = this.vetor.filter((curso)=> {    //filtro é para filtrar o curso do php
+        return +curso['idCurso'] !== +c.idCurso;      //filtra o curso do php e verifica se é diferente do curso a ser excluido
+      })
+
+      return this.vetor = filtro;
+
+    }))
+
+  }
+
+  //Atualizar Curso
+  atualizaCurso(c: Curso): Observable<Curso[]>{
+
+    //Execultando a alteração via URL
+    return this.http.put(this.url+'alterar', {cursos:c})    //Esse cursos é o json da pasta curso do php.
+    
+    .pipe(map((res) => {
+      const cursoAlterado = this.vetor.find((item) => {   //68-find() é uma função de procurar, no caso o item
+        return +item['idCurso'] === +['idCurso'];
+      });
+
+      //Quando encontrar o id p/ alterar, altera o valor do vetor local
+      if (cursoAlterado) {
+        cursoAlterado['nomeCurso'] = c['nomeCurso'];
+        cursoAlterado['valorCurso'] = c['valorCurso'];        
+      }
+
+      return this.vetor;
+    }))
+  }
+
 }

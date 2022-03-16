@@ -1,9 +1,21 @@
-<!--<p>Página curso</p> 08- página de exibição que está sendo carregada pelo componente app.component.html--> 
-<!-- {{nome}} 11- teste de variável do curso.component.ts, apagar depois -->
+<!--Formulário -->
+<form action="">
+    <label>Curso</label>    <input type="text" name="nomeCurso" [(ngModel)]="curso.nomeCurso">
+    <br>
+    
+    <label>Valor</label>    <input type="text" name="valorCurso" [(ngModel)]="curso.valorCurso">
+    <br>
 
-<!--18-testando as classes do CRUD do curso.componente.ts, primeiro apagar o número 08. depois apagar o teste número 18
-<button (click)="cadastro()">Cadastrar</button><br /><br />
-<button (click)="selecao()">Seleção</button><br /><br />
-<button (click)="alterar()">Alterar</button><br /><br />
-<button (click)="remover()">Remover</button>
--->
+    <button (click)="cadastro(this.curso)">Cadastrar</button>
+    <button (click)="alterar(this.curso)">Alterar</button> 
+    <button (click)="remover(this.curso)">Excluir</button>
+</form>
+
+<!--Tabela para testar o BD-->
+<table border="1">
+    <tr *ngFor="let v of vetor"> 
+        <td >{{v.nomeCurso}}</td>         
+        <td>{{v.valorCurso}}</td>
+        <td><button (click)="selecionarCurso(v)">Selecionar</button></td>
+    </tr>
+</table>
